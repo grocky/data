@@ -63,7 +63,7 @@ const createFile = async (destPath, { name , sha }) => {
   try {
     log(`Installing tools from ${owner}/${repo}`);
     const directoryContents = await getDirectoryContents('tools');
-    await Promise.all(directoryContents.map(c => createFile('scripts', c)));
+    await Promise.all(directoryContents.map(c => createFile('bin', c)));
     log('Done.');
   } catch (e) {
     console.error(e);

@@ -56,6 +56,7 @@ const createFile = async (destPath, { name , sha }) => {
   const filename = path.join(destPath, name);
   debug(`Creating file: ${filename}`);
   await writeFile(filename, contents);
+  fs.chmodSync(filename, '755');
   debug(`File created: ${filename}`);
 };
 

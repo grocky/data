@@ -11,11 +11,15 @@ const Octokit = require('@octokit/rest');
 
 const { GITHUB_AUTH_TOKEN, ENABLE_DEBUG } = process.env;
 
-const debug = (...message) => {
-  if (!ENABLE_DEBUG) return;
+const log = (...message) => {
   const messages = message.join(' ');
   console.debug(`${(new Date()).toISOString()} - ${messages}`);
-}
+};
+
+const debug = (...message) => {
+  if (!ENABLE_DEBUG) return;
+  log(message);
+};
 
 let octokitConfig = {};
 
@@ -55,14 +59,12 @@ const createFile = async (destPath, { name , sha }) => {
   debug(`File created: ${filename}`);
 };
 
-const main = async () => {
-  const directoryContents = await getDirectoryContents('tools');
-  return Promise.all(directoryContents.map(c => createFile('scripts', c)));
-};
-
 (async () => {
   try {
-    await main();
+    log(`Installing tools from ${owner}/${repo}`);
+    const directoryContents = await getDirectoryContents('tools');
+    await Promise.all(directoryContents.map(c => createFile('scripts', c)));
+    log('Done.');
   } catch (e) {
     console.error(e);
   }

@@ -3,5 +3,6 @@
 ## Setup
 
 ```shell
+$ make setup
 $ source scripts/setup.sh
 ```

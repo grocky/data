@@ -1,3 +1,3 @@
 
-download-helpers:
+setup:
 	scripts/download-helper-scripts.js
